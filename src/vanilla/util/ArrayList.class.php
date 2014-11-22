@@ -4,9 +4,8 @@ import('vanilla.util.Iterable');
 
 /**
  * An array list
- * FIXME implements Iterable
  */
-class ArrayList implements /*Iterable,*/ SerializableObject
+class ArrayList implements Iterable, SerializableObject
 {
     /**
      * The array of elements

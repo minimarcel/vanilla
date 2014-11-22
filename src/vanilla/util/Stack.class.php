@@ -3,7 +3,8 @@
 import('vanilla.util.ArrayList');
 
 /**
- * Une pile
+ * A stack.
+ * Add the pop, pull, peek, methods to an ArrayList.
  */
 class Stack extends ArrayList
 {
@@ -12,43 +13,43 @@ class Stack extends ArrayList
      */
     function __construct()
     {
-	parent::__construct();
+        parent::__construct();
     }
     
 //-------------------------------------------------------------------------->
     
     /**
-     * Retourne et supprime l'élement se trouvant en haut de la pile.
+     * Returns and remove the top element of the stack.
      */
     function pop()
     {
-	if ( $this->isEmpty() )
-	{
-	    return null;
-	}
+        if ( $this->isEmpty() )
+        {
+            return null;
+        }
 
-	return $this->remove($this->size() - 1);
+        return $this->remove($this->size() - 1);
     }
     
     /**
-     * Regarde sans supprimer l'élement se trouvant en haut de la pile.
+     * Just get the top element of the stack, without removing it.
      */
     function peek()
     {
-	if ( $this->isEmpty() )
-	{
-	    return null;
-	}
+        if ( $this->isEmpty() )
+        {
+            return null;
+        }
 
-	return $this->get($this->size() - 1);
+        return $this->get($this->size() - 1);
     }
 
     /**
-     * Ajoute un élement en haut de la pile
+     * Push an element of the top of the list.
      */
     function push($e)
     {
-	return $this->add($e);
+        return $this->add($e);
     }
 }
 ?>

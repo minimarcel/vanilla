@@ -1,15 +1,16 @@
 <?php
 
-/*
- * Permet de comparer deux objets (de même classe de préférence)
+/**
+ * Compare two objects
  */
 interface Comparator
 {
     /**
-     * Retourne -1, 0 ou 1 si l'objet o1 est inférieur, 
-     * égal ou supérieur à l'objet o2
-     * Attention : seules ses valeurs sont acceptées.
-     */
+     * Return -1, 0 or 1 if the object o1 is respectivly : 
+     * lowers than, equals to or greater than the object o2.
+     *
+     * Becareful : only those three values are expected.
+     */ 
     public function compare($o1, $o2);
 }
 ?>

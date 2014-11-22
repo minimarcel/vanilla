@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * A map
+ */
 interface Map
 {
     /**
@@ -15,36 +18,34 @@ interface Map
     /**
      * Returns the element for the given key.
      *
-     * @param	key	key whose associated value is to be returned.
-     *
-     * @return 	the found element; null otherwise.
+     * @param   key key whose associated value is to be returned.
+     * @return  the found element; null otherwise.
      */
     public function get($key);
     
     /**
-     * Put the value at the index key.
+     * Associate the given value to the given key.
      *
-     * @param	key	key with which the specified value is to be associated.
-     * @param	value	value to be associated with the specified key
+     * @param   key     key with which the given value is to be associated.
+     * @param   value   value to be associated with the specified key
      */
     public function put($key, $value);
     
     /**
-     * Removes the element for the given key
+     * Removes the element associated to the given key
      *
-     * @param	key	key whose mapping is to be removed from the map.
-     *
-     * @return	the removed element; null if has remove nothing.
+     * @param   key    key whose mapping is to be removed from the map.
+     * @return  the removed element; null if has remove nothing.
      */
     public function remove($key);
 
     /**
-     * Détermine si la map contient la clé donnée
+     * Determines whether the map contains the given key
      */
     public function contains($key);
 
     /**
-     * Retourne les clés.
+     * Returns the collection of keys
      */
     public function keys();
     

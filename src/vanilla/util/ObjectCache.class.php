@@ -3,7 +3,7 @@
 import('vanilla.util.StringMap');
 
 /**
- * 
+ * Maintain a cache by classname, each cache contains a map of object indexed by they keys.
  */
 class ObjectCache
 {
@@ -15,59 +15,62 @@ class ObjectCache
 //-------------------------------------------------------------------------->
     
     /**
-     * Creates a new ArrayList
+     * Creates a new ObjectCache
      */
     function __construct()
     {
-	$this->cache = new StringMap();
+        $this->cache = new StringMap();
     }
     
 //-------------------------------------------------------------------------->
 
     private function keysToString($keys)
     {
-	$s = '';
-	foreach ( $keys as $key )
-	{
-	    if ( !empty($s) )
-	    {
-		$s = $s . '-';
-	    }
+        $s = '';
+        foreach ( $keys as $key )
+        {
+            if ( !empty($s) )
+            {
+                $s = $s . '-';
+            }
 
-	    $s = $s . $key;
-	}
+            $s = $s . $key;
+        }
 
-	return $s;
+        return $s;
     }
 
     /**
-     * Ajoute un objet pour les clés donnée
+     * Cahe a new object for the given keys
      */
     public function add($object/*,...$key*/)
     {
-	$keys = func_get_args();
-	array_shift($keys);
+        $keys = func_get_args();
+        array_shift($keys);
 
-	if ( !empty($object) && !empty($keys) )
-	{
-	    $this->getCacheForObject($object)->put( $this->keysToString($keys) , $object);
-	}
+        if ( !empty($object) && !empty($keys) )
+        {
+            $this->getCacheForObject($object)->put( $this->keysToString($keys) , $object);
+        }
     }
 
     /**
-     * Ajoute un objet pour les clés donnée
+     * Remove the given keys for the cache representing by the classname of the given object.
      */
     public function remove($object/*,...$key*/)
     {
-	$keys = func_get_args();
-	array_shift($keys);
+        $keys = func_get_args();
+        array_shift($keys);
 
-	if ( !empty($object) && !empty($keys) )
-	{
-	    $this->getCacheForObject($object)->remove($this->keysToString($keys));
-	}
+        if ( !empty($object) && !empty($keys) )
+        {
+            $this->getCacheForObject($object)->remove($this->keysToString($keys));
+        }
     }
 
+    /**
+     * Cache an object by specifying the class name, instead of descovering it.
+     */
     public function addByClassName($classname, $object/*,...$key*/)
     {
         $keys = func_get_args();
@@ -78,41 +81,47 @@ class ObjectCache
         {
             if ( !is_subclass_of($object, $classname) )
             {
-        	throw new Exception("The object is not a subclass of $classname");	
+                throw new Exception("The object is not a subclass of $classname");    
             }
 
             $this->getCacheForClassName($classname)->put( $this->keysToString($keys) , $object);
         }
     }
 
+    /**
+     * Retrieve a cached object for the given classname (the classname of the searched object), and the given keys.
+     */
     public function get($classname/*,...$keys*/)
     {
-	$keys = func_get_args();
-	array_shift($keys);
+        $keys = func_get_args();
+        array_shift($keys);
 
-	if ( empty($classname) || empty($keys) )
-	{
-	    return null;
-	}
+        if ( empty($classname) || empty($keys) )
+        {
+            return null;
+        }
 
-	return $this->getCacheForClassName($classname)->get( $this->keysToString($keys) );
+        return $this->getCacheForClassName($classname)->get( $this->keysToString($keys) );
     }
 
     /**
-     * Clean the cache
+     * Clear the entire cache.
      */
     public function clean()
     {
-	$this->cache->clear();
+        $this->cache->clear();
     }
 
+    /**
+     * Clear the cache of the given classname
+     */
     public function cleanByClassName($classname)
     {
-	$map = $this->getCacheForClassName($classname);
-	if ( !empty($map) )
-	{
-	    $map->clear();
-	}
+        $map = $this->getCacheForClassName($classname);
+        if ( !empty($map) )
+        {
+            $map->clear();
+        }
     }
 
 //-------------------------------------------------------------------------->

@@ -3,8 +3,8 @@
 import('vanilla.util.Map');
 
 /**
- * An map with keys type of object or string
- * FIXME utilisation du passage par référence pour les valeurs ?
+ * A map with keys type of object or string
+ * FIXME should we use pass objects by reference or value.
  */
 class ObjectMap implements Map
 {
@@ -14,138 +14,136 @@ class ObjectMap implements Map
     public $keys;
     public $values;
 
-//-------------------------------------------------------------------------->
+// -----------------------------------> 
     
     /**
      * Creates a new Map
      */
     function __construct()
     {
-	$this->keys 	= Array();
-	$this->values 	= Array();
+        $this->keys     = Array();
+        $this->values     = Array();
     }
     
-//-------------------------------------------------------------------------->
+// -----------------------------------> 
 
     /**
-     * Returns the size of this map.
+     * @see Map#size()
      */
-    function size()
+    public function size()
     {
-	return sizeof($this->keys);
-    }
-    
-    /**
-     * Determines whether the map is empty.
-     */
-    function isEmpty()
-    {
-	return (sizeof($this->keys) <= 0);
+        return sizeof($this->keys);
     }
     
     /**
-     * Returns the element for the given key.
-     *
-     * @param	key	key whose associated value is to be returned.
-     *
-     * @return 	the found element; null otherwise.
+     * @see Map#isEmpty()
      */
-    function get($key)
+    public function isEmpty()
     {
-	$i = $this->indexOfKey($key);
-	if ( $i < 0 )
-	{
-	    return null;
-	}
-
-	return $this->values[$i];
+        return (sizeof($this->keys) <= 0);
     }
     
     /**
-     * Put the value at the index key.
-     *
-     * @param	key	key with which the specified value is to be associated.
-     * @param	value	value to be associated with the specified key
+     * @see Map#get(Object)
      */
-    function put($key, $value)
+    public function get($key)
     {
-	if ( empty($key) )
-	{
-	    throw new Exception('The key is null');
-	}
+        $i = $this->indexOfKey($key);
+        if ( $i < 0 )
+        {
+            return null;
+        }
 
-	$i = $this->indexOfKey($key);
-	if ( $i < 0 )
-	{
-	    $i = sizeof($this->keys);
-	}
-
-	$this->keys[$i] 	= $key;
-	$this->values[$i] 	= $value;
+        return $this->values[$i];
     }
     
     /**
-     * Removes the element for the given key
-     *
-     * @param	key	key whose mapping is to be removed from the map.
-     *
-     * @return	the removed element; null if has remove nothing.
+     * @see Map#put(Object, Object)
      */
-    function remove($key)
+    public function put($key, $value)
     {
-	if ( empty($key) )
-	{
-	    throw new Exception('The key is null');
-	}
+        if ( empty($key) )
+        {
+            throw new Exception('The key is null');
+        }
 
-	$i = $this->indexOfKey($key);
-	if ( $i < 0 )
-	{
-	    return null;
-	}
+        $i = $this->indexOfKey($key);
+        if ( $i < 0 )
+        {
+            $i = sizeof($this->keys);
+        }
 
-	$k1 = array_slice($this->keys, 0, $i);
-	$k2 = array_slice($this->keys, $i + 1);
+        $this->keys[$i]     = $key;
+        $this->values[$i]     = $value;
+    }
+    
+    /**
+     * @see Map#remove(Object)
+     */
+    public function remove($key)
+    {
+        if ( empty($key) )
+        {
+            throw new Exception('The key is null');
+        }
 
-	$v1 = array_slice($this->values, 0, $i);
-	$v2 = array_slice($this->values, $i + 1);
+        $i = $this->indexOfKey($key);
+        if ( $i < 0 )
+        {
+            return null;
+        }
 
-	$e = $this->elements[$key];
+        $k1 = array_slice($this->keys, 0, $i);
+        $k2 = array_slice($this->keys, $i + 1);
 
-	$this->keys 	= array_merge($k1, $k2);
-	$this->values 	= array_merge($v1, $v2);
+        $v1 = array_slice($this->values, 0, $i);
+        $v2 = array_slice($this->values, $i + 1);
 
-	return $e;
+        $e = $this->elements[$key];
+
+        $this->keys     = array_merge($k1, $k2);
+        $this->values     = array_merge($v1, $v2);
+
+        return $e;
     }
 
+    /**
+     * @see Map#contains(Object)
+     */
     public function contains($key)
     {
-	return ($this->indexOfKey($key) >= 0);
+        return ($this->indexOfKey($key) >= 0);
     }
 
+    /**
+     * @see Map#indexOfKey(Object)
+     */
     private function indexOfKey($key)
     {
-	$i = array_search($key, $this->keys);
-	if ( $i === false )
-	{
-	    return -1;
-	}
+        $i = array_search($key, $this->keys);
+        if ( $i === false )
+        {
+            return -1;
+        }
 
-	return $i;
+        return $i;
     }
 
+    /**
+     * @see Map#keys()
+     */
     public function keys()
     {
-	return $this->keys;
+        return $this->keys;
     }
     
     /**
-     * Clear the entire list.
+     * @see Map#clear()
      */
     public function clear()
     {
-	$this->keys 	= Array();
-	$this->values 	= Array();
+        $this->keys     = Array();
+        $this->values   = Array();
     }
 }
 ?>

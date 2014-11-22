@@ -4,7 +4,6 @@ import('vanilla.util.Map');
 
 /**
  * A map with keys type of string
- * FIXME utilisation du passage par référence pour les valeurs ?
  */
 class StringMap implements Map, SerializableObject
 {
@@ -16,135 +15,133 @@ class StringMap implements Map, SerializableObject
 //-------------------------------------------------------------------------->
     
     /**
-     * Creates a new ArrayList
+     * Creates a new string map
      */
     public function __construct()
     {
-	$this->elements = Array();
+        $this->elements = Array();
     }
     
 //-------------------------------------------------------------------------->
 
     public function getClassPaths()
     {
-	$a = Array('vanilla.util.StringMap');
-	foreach ( $this->elements as $value )
-	{
-	    if ( $value instanceof SerializableObject )
-	    {
-		$a = array_merge($a, $value->getClassPaths());
-	    }
-	}
+        $a = Array('vanilla.util.StringMap');
+        foreach ( $this->elements as $value )
+        {
+            if ( $value instanceof SerializableObject )
+            {
+            $a = array_merge($a, $value->getClassPaths());
+            }
+        }
 
-	return $a;
+        return $a;
     }
 
 //-------------------------------------------------------------------------->
 
     /**
-     * Returns the size of this list.
+     * @see Map#size()
      */
     public function size()
     {
-	return sizeof($this->elements);
+        return sizeof($this->elements);
     }
     
     /**
-     * Determines whether the list is empty.
+     * @see Map#isEmpty()
      */
     public function isEmpty()
     {
-	return (sizeof($this->elements) <= 0);
+        return (sizeof($this->elements) <= 0);
     }
     
     /**
-     * Returns the element for the given key.
-     *
-     * @param	key	key whose associated value is to be returned.
-     *
-     * @return 	the found element; null otherwise.
+     * @see Map#get(Object)
      */
     public function get($key)
     {
-	if ( $this->contains($key) )
-	{
-	    return $this->elements[$key];
-	}
+        if ( $this->contains($key) )
+        {
+            return $this->elements[$key];
+        }
 
-	return null;
+        return null;
     }
 
+    /**
+     * @see Map#contains(Object)
+     */
     public function contains($key)
     {
-	return array_key_exists($key, $this->elements);
+        return array_key_exists($key, $this->elements);
     }
     
     /**
-     * Put the value at the index key.
-     *
-     * @param	key	key with which the specified value is to be associated.
-     * @param	value	value to be associated with the specified key
+     * @see Map#put(Object, Object)
      */
     public function put($key, $value)
     {
-	if ( !isset($key) )
-	{
-	    throw new Exception('The key is null');
-	}
+        if ( !isset($key) )
+        {
+            throw new Exception('The key is null');
+        }
 
-	$this->elements[$key] = $value;
+        $this->elements[$key] = $value;
     }
     
     /**
-     * Removes the element for the given key
-     *
-     * @param	key	key whose mapping is to be removed from the map.
-     *
-     * @return	the removed element; null if has remove nothing.
+     * @see Map#remove(Object)
      */
     public function remove($key)
     {
-	if ( empty($key) )
-	{
-	    throw new Exception('The key is null');
-	}
+        if ( empty($key) )
+        {
+            throw new Exception('The key is null');
+        }
 
-	$i = array_search($key, $this->keys());
-	if ( $i === false )
-	{
-	    return null;
-	}
+        $i = array_search($key, $this->keys());
+        if ( $i === false )
+        {
+            return null;
+        }
 
-	$a1 = array_slice($this->elements, 0, $i);
-	$a2 = array_slice($this->elements, $i + 1);
+        $a1 = array_slice($this->elements, 0, $i);
+        $a2 = array_slice($this->elements, $i + 1);
 
-	$e = $this->elements[$key];
-	$this->elements = array_merge($a1, $a2);
-	return $e;
+        $e = $this->elements[$key];
+        $this->elements = array_merge($a1, $a2);
+        return $e;
     }
 
+    /**
+     * @see Map#keys()
+     */
     public function keys()
     {
-	return array_keys($this->elements);
+        return array_keys($this->elements);
     }
     
     /**
-     * Clear the entire list.
+     * @see Map#clear()
      */
     public function clear()
     {
-	$this->elements = Array();
+        $this->elements = Array();
     }
 
+    /**
+     * Clone this list
+     */
     public function duplicate()
     {
-	$clone = new StringMap();		
-	foreach ( $this->elements as $key => $value )
-	{
-	    $clone->elements[$key] = $value;
-	}
+        $clone = new StringMap();        
+        foreach ( $this->elements as $key => $value )
+        {
+            $clone->elements[$key] = $value;
+        }
 
-	return $clone;
+        return $clone;
     }
 }
 ?>

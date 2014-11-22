@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * An event dated
+ * @deprecated
  */
 interface DateEvent
 {
