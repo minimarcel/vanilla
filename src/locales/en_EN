@@ -1,0 +1,75 @@
+$ en_EN
+# ------------------------------------
+* DateTimePatterns
+" %f/%e/%y
+" %b %e, %Y
+" %B %e, %Y
+" %A, %B %e, %Y
+" %l:%M %p
+" %l:%M:%S %p
+" %l:%M:%S %p %Z
+" %l:%M:%S %p %Z
+" $date $time
+# ------------------------------------
+* DayNames
+" Sunday
+" Monday
+" Tuesday
+" Wednesday
+" Thursday
+" Friday
+" Saturday
+# ------------------------------------
+* DayAbreviations
+" Sun
+" Mon
+" Tue
+" Wed
+" Thu
+" Fri
+" Sat
+# ------------------------------------
+* MonthNames
+" January
+" February
+" March
+" April
+" May
+" June
+" July
+" August
+" September
+" October
+" November
+" December
+# ------------------------------------
+* MonthAbreviations
+" Jan
+" Feb
+" Mar
+" Apr
+" May
+" Jun
+" Jul
+" Aug
+" Sep
+" Oct
+" Nov
+" Dec
+# ------------------------------------
+* NumberPatterns
+" %#,##0.###%;%-%#,##0.###%
+" %c%#,##0.00%;%-%c%#,##0.00%
+" %#,##0%%p
+# ------------------------------------
+* NumberElements
+" .
+" ,
+" %
+" -
+" E
+" ‰
+" ∞
+# ------------------------------------
+* Currencies
+" GBP £

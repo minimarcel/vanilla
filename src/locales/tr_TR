@@ -1,0 +1,79 @@
+$ tr_TR
+# ------------------------------------
+* DateTimePatterns
+" %d.%m.%Y
+" %d.%b.%Y
+" %d %B %Y %A
+" %d %B %Y %A
+" %H:%M
+" %H:%M:%s
+" %H:%M:%S %Z
+" %H:%M:%S %Z
+" $date $time
+# ------------------------------------
+* DayNames
+" Pazar
+" Pazartesi
+" Salı
+" Çarşamba
+" Perşembe
+" Cuma
+" Cumartesi
+# ------------------------------------
+* DayAbreviations
+" Paz
+" Pzt
+" Sal
+" Çar
+" Per
+" Cum
+" Cmt
+# ------------------------------------
+* MonthNames
+" Ocak
+" Şubat
+" Mart
+" Nisan
+" Mayıs
+" Haziran
+" Temmuz
+" Ağustos
+" Eylül
+" Ekim
+" Kasım
+" Aralık
+# ------------------------------------
+* MonthAbreviations
+" Oca
+" Şub
+" Mar
+" Nis
+" May
+" Haz
+" Tem
+" Ağu
+" Eyl
+" Eki
+" Kas
+" Ara
+# ------------------------------------
+* AmPmMarkers
+" AM
+" PM
+# ------------------------------------
+* NumberPatterns
+" %#,%##0.###%;%-%#,##0.###%
+" %#,##0.00 %c;%-%#,##0.00% %c
+" %p %#,##0%
+# ------------------------------------
+* NumberElements
+" ,
+" .
+" %
+" -
+" E
+" ‰
+" ∞
+# ------------------------------------
+* Currencies
+" TRY TL

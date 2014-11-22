@@ -1,0 +1,79 @@
+$ nl_NL
+# ------------------------------------
+* DateTimePatterns
+" %A %e %B %Y
+" %e %B %Y
+" %e-%b-%Y
+" %e-%f-%y
+" %k:%M:%S' uur' %z
+" %k:%M:%S z
+" %k:%M:%S
+" %k:%M
+" %date %time
+# ------------------------------------
+* DayNames
+" zondag
+" maandag
+" dinsdag
+" woensdag
+" donderdag
+" vrijdag
+" zaterdag
+# ------------------------------------
+* DayAbreviations
+" zo
+" ma
+" di
+" wo
+" do
+" vr
+" za
+# ------------------------------------
+* MonthNames
+" januari
+" februari
+" maart
+" april
+" mei
+" juni
+" juli
+" augustus
+" september
+" oktober
+" november
+" december
+# ------------------------------------
+* MonthAbreviations
+" jan
+" feb
+" mrt
+" apr
+" mei
+" jun
+" jul
+" aug
+" sep
+" okt
+" nov
+" dec
+# ------------------------------------
+* AmPmMarkers
+" AM
+" PM
+# ------------------------------------
+* NumberPatterns
+" %#,##0.###%;%-%#,##0.###%
+" %c %#,##0.00%;%c %#,##0.00%%-
+" #,##0%p
+# ------------------------------------
+* NumberElements
+" ,
+" .
+" %
+" -
+" E
+" ‰
+" ∞
+# ------------------------------------
+* Currencies
+" EUR €

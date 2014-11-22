@@ -1,0 +1,75 @@
+$ fr_CA
+# ------------------------------------
+* DateTimePatterns
+" %y-%m-%d
+" %Y-%m-%d
+" %e %B %Y
+" %A %e %B %Y
+" %H:%M
+" %H:%M:%S
+" %H:%M:%S %Z
+" %k h %M %Z
+" $date $time
+# ------------------------------------
+* DayNames
+" dimanche
+" lundi
+" mardi
+" mercredi
+" jeudi
+" vendredi
+" samedi
+# ------------------------------------
+* DayAbreviations
+" dim.
+" lun.
+" mar.
+" mer.
+" jeu.
+" ven.
+" sam.
+# ------------------------------------
+* MonthNames
+" janvier
+" février
+" mars
+" avril
+" mai
+" juin
+" juillet
+" août
+" septembre
+" octobre
+" novembre
+" décembre
+# ------------------------------------
+* MonthAbreviations
+" janv.
+" févr.
+" mars
+" avr.
+" mai
+" juin
+" juil.
+" août
+" sept.
+" oct.
+" nov.
+" déc.
+# ------------------------------------
+* NumberPatterns
+" %#,##0.###%;%-%#,##0.###%
+" %#,##0.00% %c;(%#,##0.00%%c)
+" %#,##0% %p
+# ------------------------------------
+* NumberElements
+" ,
+"  
+" %
+" -
+" E
+" ‰
+" ∞
+# ------------------------------------
+* Currencies
+" CAD $

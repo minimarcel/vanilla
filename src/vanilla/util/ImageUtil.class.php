@@ -1,0 +1,161 @@
+<?php
+
+import('vanilla.gfx.Gfx');
+import('vanilla.gfx.Rectangle');
+import('vanilla.io.File');
+
+class ImageUtil
+{
+    public static function autoCropForThumb(Image $image, Dimension $fixedSize)
+    {
+	$w = $image->getWidth();
+	$h = $image->getHeight();
+
+	$fw = $fixedSize->getWidth();
+	$fh = $fixedSize->getHeight();
+
+	/*
+	   On essaye tout d'abord de sélectionner une
+	   zone au maximum de l'image
+	*/
+
+	$cropW = $w;
+	$cropH = $cropW * $fh / $fw;
+
+	if ( $cropH > $h )
+	{
+	    $cropH = $h;
+	    $cropW = $cropH * $fw / $fh;
+	}
+
+	/*
+	   On essaye maintenant de réduire à 66%
+	 */
+
+	$size = $cropW / 1.5;
+	if ( $size > $fw )
+	{
+	    $cropW /= 1.5;
+	    $cropH = $cropW * $fh / $fw;
+	}
+
+	$cropW = intval($cropW);
+	$cropH = intval($cropH);
+
+	/*
+	   On centre le zone
+	*/
+
+	$cropX = intVal($w/2-$cropW/2);
+	$cropY = intVal($h/2-$cropH/2);
+
+	return $image->getScaledInstance($fw, $fh, $cropW, $cropH, $cropX, $cropY);
+    }
+
+    public static function resizeForMaxDimensions(Image $image, $maxWidth=-1, $maxHeight=-1)
+    {
+	$source = new Rectangle();
+	$source->setSize($image->getSize());
+
+	return self::cropAndResizeForMaxDimensions($image, $source, $maxWidth, $maxHeight);
+    }
+
+    public static function cropAndResizeForMaxDimensions(Image $image, Rectangle $source, $maxWidth=-1, $maxHeight=-1, /*Dimention*/ $dest=null)
+    {
+	$width	= empty($dest) ? $source->getWidth() : $dest->getWidth();
+	$height	= empty($dest) ? $source->getHeight() : $dest->getHeight();
+
+	if ( $maxWidth > 0 && $width > $maxWidth )
+	{
+	    $height *= $maxWidth/$width;
+	    $width = $maxWidth;
+	}
+
+	if ( $maxHeight > 0 && $height > $maxHeight )
+	{
+	    $width *= $maxHeight/$height;
+	    $height = $maxHeight;
+	}
+
+	return $image->getScaledInstance($width, $height, $source->getWidth(), $source->getHeight(), $source->getX(), $source->getY());
+    }
+
+    public static function resizeForFixedSize(Image $image, Dimension $fixedSize)
+    {
+	$source = new Rectangle();
+	$source->setSize($image->getSize());
+
+	return self::cropAndResizeForFixedSize($image, $source, $fixedSize);
+    }
+
+    public static function cropAndResizeForFixedSize(Image $image, Rectangle $source, Dimension $fixedSize)
+    {
+	// on redéfinie le crop de manière à être sûr qu'il soit à la bonne taille
+	$width 	= $source->getWidth();
+	$height = $width * $fixedSize->getHeight() / $fixedSize->getWidth();
+
+	if ( $height > $source->getHeight() )
+	{
+	    $height 	= $source->getHeight();
+	    $width 	= $height * $fixedSize->getWidth() / $fixedSize->getHeight();
+	}
+
+	return $image->getScaledInstance($fixedSize->getWidth(), $fixedSize->getHeight(), $width, $height, $source->getX(), $source->getY());
+    }
+
+
+    public static function autoCropFileForThumb(File $file, Dimension $fixedSize, File $destFile=null)
+    {
+	$imageInfo	= Gfx::getImageInfoFromFile($file);
+	$format		= $imageInfo->getFormat();
+	$image		= Gfx::loadImageFromFile($file);
+	$resized	= self::autoCropForThumb($image, $fixedSize);
+
+	if ( empty($destFile) )
+	{
+	    $destFile = $file;
+	}
+
+	Gfx::writeImageToFile($resized, $destFile, $format);
+
+	$image->release();
+	$resized->release();
+    }
+
+    public static function resizeFileForMaxDimensions(File $file, $maxWidth=-1, $maxHeight=-1, File $destFile=null)
+    {
+	$imageInfo	= Gfx::getImageInfoFromFile($file);
+	$format		= $imageInfo->getFormat();
+	$image		= Gfx::loadImageFromFile($file);
+	$resized	= self::resizeForMaxDimensions($image, $maxWidth, $maxHeight);
+
+	if ( empty($destFile) )
+	{
+	    $destFile = $file;
+	}
+
+	Gfx::writeImageToFile($resized, $destFile, $format);
+
+	$image->release();
+	$resized->release();
+    }
+
+    public static function resizeFileForFixedSize(File $file, Dimension $fixedSize, File $destFile=null)
+    {
+	$imageInfo	= Gfx::getImageInfoFromFile($file);
+	$format		= $imageInfo->getFormat();
+	$image		= Gfx::loadImageFromFile($file);
+	$resized	= self::resizeForFixedSize($image, $fixedSize);
+
+	if ( empty($destFile) )
+	{
+	    $destFile = $file;
+	}
+
+	Gfx::writeImageToFile($resized, $destFile, $format);
+
+	$image->release();
+	$resized->release();
+    }
+}
+?>
